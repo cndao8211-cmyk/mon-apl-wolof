@@ -43,7 +43,7 @@ def accueil():
 def discuter(request: Request, msg: MessageUtilisateur):
     try:
         reponse = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-3.8-flash",
             contents=msg.historique,
             config=types.GenerateContentConfig(
                 system_instruction=system_prompt
