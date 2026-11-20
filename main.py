@@ -24,11 +24,12 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://hf.space", "https://huggingface.co"],
+    allow_origins=["*"],
     allow_credentials=False,
-    allow_methods=["POST"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 class MessageUtilisateur(BaseModel):
     historique: list
