@@ -41,14 +41,21 @@ def accueil():
 @app.post("/chat")
 @limiter.limit("15/minute")
 def discuter(request: Request, msg: MessageUtilisateur):
-    try:
-        reponse = client.models.generate_content(
-            model="gemini-3.8-flash",
-            contents=msg.historique,
-            config=types.GenerateContentConfig(
-                system_instruction=system_prompt
+    modeles = ["gemini-3.8-flash", "gemini-3.8-flash-lite"]
+    derniere_erreur = ""
+    
+    for modele in modeles:
+        try:
+            reponse = client.models.generate_content(
+                model=modele,
+                contents=msg.historique,
+                config=types.GenerateContentConfig(
+                    system_instruction=system_prompt
+                )
             )
-        )
-        return {"reponse": reponse.text}
-    except Exception as e:
-        return {"reponse": f"Erreur serveur : {str(e)}"}
+            return {"reponse": reponse.text}
+        except Exception as e:
+            derniere_erreur = str(e)
+            continue
+            
+    return {"reponse": f"Erreur serveur : {derniere_erreur}"}
