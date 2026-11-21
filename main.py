@@ -41,7 +41,7 @@ def accueil():
 @app.post("/chat")
 @limiter.limit("15/minute")
 def discuter(request: Request, msg: MessageUtilisateur):
-    modeles = ["gemini-3.8-flash", "gemini-3.8-flash-lite"]
+    modeles = ["gemini-3.8-flash", "gemini-3.5-flash", "gemini-3.5-flash-lite"]
     derniere_erreur = ""
     
     for modele in modeles:
