@@ -34,7 +34,7 @@ app.add_middleware(
 class MessageUtilisateur(BaseModel):
     historique: list
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 def accueil():
     return {"status": "Serveur IA Wolof en ligne 24h/24"}
 
